@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   base: '/iMessage-Mock/',
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     assetsDir: 'assets'
   }
 })
