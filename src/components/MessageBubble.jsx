@@ -89,15 +89,17 @@ const MessageBubble = ({ message, isEditorMode, onUpdate, onDelete }) => {
         )}
         <div
           className={`
-            px-4 py-2 rounded-2xl text-base transition-colors
+            px-4 py-2 text-base transition-colors max-w-[100%]
             ${isSelf 
-              ? 'bg-blue-500 text-white rounded-tr-none' 
-              : 'bg-gray-200 text-black rounded-tl-none'
+              ? 'bg-[#007AFF] text-white rounded-2xl rounded-tr-none' 
+              : 'bg-[#E5E5EA] text-black rounded-2xl rounded-tl-none'
             }
             ${isEditorMode ? 'hover:opacity-80' : ''}
           `}
           style={{
-            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif'
+            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif',
+            lineHeight: '1.4',
+            wordBreak: 'break-word'
           }}
         >
           <p className="break-words">{message.text}</p>

@@ -38,6 +38,7 @@ const ChatScreen = () => {
   
   const [isTyping, setIsTyping] = useState(false);
   const [draggedMessage, setDraggedMessage] = useState(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -55,6 +56,13 @@ const ChatScreen = () => {
   useEffect(() => {
     localStorage.setItem('imessage-vibe', currentVibe);
   }, [currentVibe]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSendMessage = (text) => {
     const newMessage = {
@@ -123,7 +131,7 @@ const ChatScreen = () => {
     <div className="flex flex-col h-screen bg-black max-w-md mx-auto relative">
       {/* iPhone Status Bar */}
       <div className="bg-black text-white px-6 py-2 flex justify-between items-center text-xs font-medium">
-        <span>{new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</span>
+        <span>{currentTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}</span>
         <div className="flex items-center gap-1">
           <div className="w-4 h-3 border border-white rounded-sm">
             <div className="w-3 h-2 bg-white rounded-sm m-0.5"></div>
@@ -175,7 +183,7 @@ const ChatScreen = () => {
       <Header isEditorMode={isEditorMode} />
 
       {/* Messages Area */}
-      <div className={`flex-1 overflow-y-auto px-4 py-2 ${VIBE_THEMES[currentVibe]?.messageBackground || 'bg-gray-100'}`}>
+      <div className={`flex-1 overflow-y-auto px-4 py-2 ${currentVibe === 'default' ? 'bg-[#ECECEC]' : (VIBE_THEMES[currentVibe]?.messageBackground || 'bg-gray-100')}`}>
         <div className="space-y-2">
           {messages.map((message) => (
             <div
